@@ -9,6 +9,8 @@ window.requestAnimFrame = ( function() {
 				};
 })();
 
+var x = document.getElementById("myAudio");
+
 // now we will setup our basic variables for the demo
 var canvas = document.getElementById( 'canvas' ),
 		ctx = canvas.getContext( '2d' ),
@@ -287,3 +289,8 @@ $(".shinyteeth").on("click", function(e){
 	var snd = new Audio("ding.mp3"); // buffers automatically when created
 	snd.play();
 });
+
+function setHalfVolume() {
+    var myAudio = document.getElementById("audio1");  
+    myAudio.volume = 1; //Changed this to 0.5 or 50% volume since the function is called Set Half Volume ;)
+}

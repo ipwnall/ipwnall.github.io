@@ -1,4 +1,28 @@
 <!doctype html>
+<!-- 	+--------------------------------------------------------------+
+		|             $*                         *8*                   |
+		|            88   $*                      "*8"  .              |
+		|           88   88   $*               *8*     8 *,            |
+		|          88   88   88                 "*8 *   "*8*           |
+		|         88   88   88              *8 *   "*8 * ,             |
+		|        *$   88   88                " *8" .  "*8*             |
+		|            *$   88        .-888-.        8 * ,               |
+		|                *$       .888red888.       "*8*               |
+		|                        ,888888.*;;*.                         |
+		|                        888888*;;;;;`                         |
+		|                        888888*;;;;;j                         |
+		|                        `*00*";;;;;.'                         |
+		|               *8*       `;;;blue;;'        $*                |
+		|                "*8 *      `-;;;-'         88   $*            |
+		|             *8*   "*8 *,                 "*   88   $*        |
+		|              "*8" .  "*8*               *.   "*   88         |
+		|          *8 *     8 * ,                88   *.   "*          |
+		|           " *8 *   "*8*               *$   88   *.           |
+		|               "*8 * ,                     *$   88            |
+		|                  "*8*                         *$             |
+		+--------------------------------------------------------------+
+-->
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -50,7 +74,10 @@
 				<p class="lead">greetings and welcome to my wonderful site.</p>
 				<p class="lead">greetings and welcome to my wonderful site.</p>
 				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead"><a href="#" class="btn btn-lg btn-secondary">Button Test</a></p>
+				<p class="lead"><button onclick="setFullVolume()" class="btn btn-lg btn-secondary front">Click to Mute Song</button></p>
+
+				
+				
 			</main>
 			
 			
@@ -69,8 +96,10 @@
 						<img src="images/shine.png" class="starshine transform"></img>
 					</div>
 					
-					
-				  <audio src="rice.mp3" autoplay><p>@</p></audio>
+				
+					<audio id= "audio1" controls="controls" onloadeddata="setHalfVolume()" autoplay>
+						<source src="rice.mp3"  type="audio/mp3">
+					</audio>
 			</div>
 			
 

@@ -7,6 +7,7 @@ a,
 a:focus,
 a:hover {
   color: #fff;
+  cursor: url('images/cursor2.png'), pointer;
 }
 
 /* Custom default button */
@@ -17,6 +18,7 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: #fff;
   border: .05rem solid #fff;
+  cursor: url('images/cursor2.png'), progress;
 }
 
 
@@ -33,12 +35,10 @@ body {
   text-align: center;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
   cursor: url('images/cursor.png'), pointer;
-  /*background-image: url('images/flag.gif')*/
   background: linear-gradient(
       rgba(210, 210, 210, 0.6), 
       rgba(210, 210, 210, 0.6)
     ),
-    /* bottom, image */
     url('images/flag.gif');
 }
 
@@ -164,7 +164,7 @@ canvas {
 	margin-top: 150px;
 }
 
-.blink {
+.blink, a:hover {
 	color: red;
     animation-duration: 0.5s;
     animation-name: blink;
