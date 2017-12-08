@@ -285,12 +285,51 @@ window.onload = loop;
 
 
 $(".shinyteeth").on("click", function(e){
-  $('.transform').toggleClass('transform-active');
-	var snd = new Audio("ding.mp3"); // buffers automatically when created
-	snd.play();
+	$('.transform').toggleClass('transform-active');
+		var snd = new Audio("ding.mp3"); // buffers automatically when created
+		snd.play();
 });
 
 function setHalfVolume() {
     var myAudio = document.getElementById("audio1");  
-    myAudio.volume = 1; //Changed this to 0.5 or 50% volume since the function is called Set Half Volume ;)
-}
+    myAudio.volume = 0.1; 
+};
+
+function addClicks(clickcount) {
+	var clickcount = document.getElementById('clickcount').value;
+	var new_clickcount = parseInt(clickcount,10) + 1;
+    document.getElementById('clickcount').value = new_clickcount;
+	if (new_clickcount === 1) {
+		var myAudio = document.getElementById("audio1");  
+		myAudio.volume = 1.0; 
+		
+	} else if (new_clickcount === 4) {
+		
+		window.alert("Thank you, your mute request has been processed and all music is now muted. If your music is still playing, please try clicking the 'Mute Music' button again.")
+	} else if (new_clickcount === 10) {
+		$("#captcha").show();
+	}
+	
+    return new_qty;
+};
+
+
+function submitCaptcha() {
+	var captcha1 = document.getElementById('captcha1').value;
+	var captcha2 = document.getElementById('captcha2').value;
+	var captcha3 = document.getElementById('captcha3').value;
+	var captcha4 = document.getElementById('captcha4').value;
+	var captcha5 = document.getElementById('captcha5').value;
+	var captcha6 = document.getElementById('captcha6').value;
+	
+		if (captcha1.length == 0 || captcha2.length == 0 || captcha3.length == 0 || captcha4.length == 0 || captcha5.length == 0 || captcha6.length == 0){
+		window.alert("Please fully complete the CAPTCHA before submitting")
+	}	else {
+		$("#captcha").hide();
+		$("#loading").show();
+		setTimeout(function(){ $("#loading").hide(); }, 4000);
+		$("#congrats").show();
+			var myAudio = document.getElementById("audio1");  
+			myAudio.volume = 0; 
+	}
+};

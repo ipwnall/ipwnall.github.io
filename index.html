@@ -54,8 +54,8 @@
               <h3 class="masthead-brand"><img src="images/logo.gif" /></h3>
               <nav class="nav nav-masthead">
                 <a class="nav-link active" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="#">Also Home</a>
               </nav>
             </div>
 			
@@ -66,18 +66,81 @@
 		  
 			<main role="main" class="inner cover top-padding">
 				<h1 class="cover-heading">Sean's Special Site</h1>
-				<marquee class="lead blink"><strong>SMASH OR PASS?! >>> <a href="http://www.strawpoll.me/14564412" class="blink">VOTE HERE</a> <<<</marquee>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead">greetings and welcome to my wonderful site.</p>
-				<p class="lead"><button onclick="setFullVolume()" class="btn btn-lg btn-secondary front">Click to Mute Song</button></p>
+				<marquee class="lead blink"><strong>SMASH OR PASS?! >>> <a href="http://www.strawpoll.me/14564412" class="blink" target="_blank">VOTE HERE</a> <<<</marquee>
+				
+				<ul>
+				<li class="lead">greetings and welcome to my wonderful site.</li>
+				<li class="lead">greetings and welcome to my wonderful site.</li>
+				<li class="lead">greetings and welcome to my wonderful site.</li>
+				<li class="lead">greetings and welcome to my wonderful site.</li>
+				<li class="lead">greetings and welcome to my wonderful site.</li>
+				<li class="lead">i hope you have a great day</li>
+				</ul>
+				
+				<!-- Volume Control -->
+				
+				<p class="lead"><button onclick="addClicks();" class="volumecontrol btn btn-lg btn-secondary front">Click to Mute Song</button></p>
+				<!-- <label for="clickcount"></label> -->
+				<input id="clickcount" value="0" type="hidden" />
+					<div id="captcha">
+						<strong>Please enter verification CAPTCHA below to submit Mute request:</strong>
+							  <div class="row ">
+							  
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/1.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha1"></input>
+								</div></div>
+								
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/2.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha2"></input>
+								</div></div>
 
-				
-				
+							  </div>
+							  
+							  <div class="row ">
+							  
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/3.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha3"></input>
+								</div></div>
+								
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/4.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha4"></input>
+								</div></div>
+
+							  </div>
+							  
+							  <div class="row ">
+							  
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/5.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha5"></input>
+								</div></div>
+								
+								<div class="col-sm"><div class='borderthin'>
+								  <img src='images/captcha/6.jpg'/>
+								  <br><br>
+									<input type="text" id="captcha6"></input>
+								</div></div>
+
+							  </div>
+							  <br>
+						<button onclick="submitCaptcha()" class="btn btn-secondary front">Submit</button>	
+					</div>
+					<div id="loading">
+						<br>
+						<img src='images/loading.gif' width="50%"/>
+					</div>
+					<div id="congrats">
+						<h3>Verification successful, Music muted.</h3>
+					</div>
 			</main>
 			
 			
@@ -85,7 +148,7 @@
 			
 			
 			<div class="inner">
-				  <p>this place is a secret, just between you and me</p>
+				  <p class="smalltext">this place is a secret, just between you and me</p>
 				  
 				  
 				    <div class="teethcontainer">
@@ -97,7 +160,7 @@
 					</div>
 					
 				
-					<audio id= "audio1" controls="controls" onloadeddata="setHalfVolume()" autoplay>
+					<audio id= "audio1" onloadeddata="setHalfVolume()" autoplay>
 						<source src="rice.mp3"  type="audio/mp3">
 					</audio>
 			</div>
