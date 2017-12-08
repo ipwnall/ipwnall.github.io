@@ -303,10 +303,10 @@ function addClicks(clickcount) {
 		var myAudio = document.getElementById("audio1");  
 		myAudio.volume = 1.0; 
 		
-	} else if (new_clickcount === 4) {
+	} else if (new_clickcount === 2) {
 		
 		window.alert("Thank you, your mute request has been processed and all music is now muted. If your music is still playing, please try clicking the 'Mute Music' button again.")
-	} else if (new_clickcount === 10) {
+	} else if (new_clickcount === 3) {
 		$("#captcha").show();
 	}
 	
