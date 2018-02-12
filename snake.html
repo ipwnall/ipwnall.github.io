@@ -17,9 +17,9 @@
 					text-align: center;
 			}
 			#snakecanvas {
-				-webkit-box-shadow:0 0 20px #000;
-				-moz-box-shadow: 0 0 20px #000;
-				box-shadow:0 0 20px #000;
+				-webkit-box-shadow:0 0 50px #000;
+				-moz-box-shadow: 0 0 50px #000;
+				box-shadow:0 0 50px #000;
 				
 				position: absolute;
 				margin-left: auto;
@@ -60,9 +60,28 @@
 				width: 180px;
 			 }
 			 
+			 #stats {
+				text-align: right;
+				padding-right: 30px;
+				padding-top: 5px;
+			}
+			
+			dialog {  
+				width: 500px;  
+				background:#e8e8e8;
+				border: 1px solid #dadada;
+				font-family:sans-serif;
+				padding: 5px 10px 20px 20px;
+				display: none;
+			}  
 			
 			
 			h1 { font-size:90px;
+				 color: #fff;
+				 line-height: 1;
+				 }
+			
+			h3 { font-size:40px;
 				 color: #fff;
 				 line-height: 1;
 				 }
@@ -75,14 +94,67 @@
 				((-moz-text-stroke-color: #000)
 				and
 				(-moz-text-fill-color: white)) {
-				h1 {
+				h1, h3 {
 				   -moz-text-fill-color: white;
 				-webkit-text-fill-color: white;
 				   -moz-text-stroke-color: #000;
 				-webkit-text-stroke-color: #000;
-				   -moz-text-stroke-width: 3px;  
-				-webkit-text-stroke-width: 3px;
+				   -moz-text-stroke-width: .04em;  
+				-webkit-text-stroke-width: .04em;
 				}
+				}
+				
+				
+				
+				
+				.bounce {
+				  position: relative;
+				  -moz-animation: bounce 2s ease-in-out;
+				  -o-animation: bounce 2s ease-in-out;
+				  -webkit-animation: bounce 2s ease-in-out;
+				  animation: bounce 2s;
+				  display: none;
+				}
+				#scorebounce{
+				display: none;
+				  font-size: 30px;
+				  margin: 20px;
+				}
+				@-webkit-keyframes bounce {
+					display: inline-block;
+					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
+					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
+					100% { top: 3em; right: -2em; opacity: 0.2;}
+					display: none;
+				}
+				@-moz-keyframes bounce {
+					display: inline-block;
+					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
+					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
+					100% { top: 3em; right: -2em; opacity: 0.2;}
+					display: none;
+				}
+				@-o-keyframes bounce {
+					display: inline-block;
+					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
+					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
+					100% { top: 3em; right: -2em; opacity: 0.2;}
+					display: none;
+				}
+				@-ms-keyframes bounce {
+					display: inline-block;
+					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
+					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
+					100% { top: 3em; right: -2em; opacity: 0.2;}
+					display: none;
+				}
+				@keyframes bounce {
+					display: inline-block;
+					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
+					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
+					100% { top: 3em; right: -2em; opacity: 0.2;}
+					display: none;
+					
 				}
 
 
@@ -108,6 +180,7 @@
 				<canvas id="snakecanvas"></canvas>
 				<canvas id="wavecanvas"></canvas>
 				<div id="scoreBoard"><p></p></div>
+				<span id="bonus"></span><h3 id="stats"></h3>
 				</div>
 				
 				

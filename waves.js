@@ -138,52 +138,8 @@ function iterateSimulation(){
   conservationOfMassCorrection = initialHeight - avgHeight;
 }
 
-//function executeMouseInteraction(){
-//  if(mouseDown){
-//    var i = Math.floor((gridSize-1) * mouseX / wavecanvas.width);
-//    var j = Math.floor((gridSize-1) * mouseY / wavecanvas.height);
-//    var cell = cells[i + j * gridSize];
-//    cell.height = 2;
-//    cell.velocity = 0;
-//  }
-//}
-
-//wavecanvas.addEventListener("mousedown",function(e){
-//  mouseDown = true;
-//  mouseX = e.offsetX;
-//  mouseY = e.offsetY;
-//});
-
-//wavecanvas.addEventListener("mousemove",function(e){
-//  mouseX = e.offsetX;
-//  mouseY = e.offsetY;
-//});
-
-//wavecanvas.addEventListener("mouseup",function(e){
-//  mouseDown = false;
-//});
-
-// Kick off the animation when the mouse enters the wavecanvas
-//wavecanvas.addEventListener('mouseover', function(e){
-//  animate = true;
-//  executeFrame();
-//});
-
-// Pause animation when the mouse exits the wavecanvas
-//wavecanvas.addEventListener("mouseout",function(e){
-//  mouseDown = false;
-//  animate = false;
-//});
-
-// Iterate the simulation a couple of times
-// so the program shows something before animation starts.
-//for(var i = 0; i < 7; i++)
-//  iterateSimulation();
-
-// Draw the first frame
 
 function explodebg(){
-	getScores();
 	var i = Math.floor((gridSize-1) * xFoodPosition / wavecanvas.width);
     var j = Math.floor((gridSize-1) * yFoodPosition / wavecanvas.height);
     var cell = cells[i + j * gridSize];

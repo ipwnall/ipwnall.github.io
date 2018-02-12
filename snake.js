@@ -13,6 +13,7 @@ var highScore = new Array();
 		highScore['time'] = 0;
 		highScore['name'] = 'na';
 var scoreList = new Array();
+var lowestScore;
  
 //preload images and declare sources here
 
@@ -32,6 +33,10 @@ imgArray[17] = new Image(); imgArray[17].src = 'images/chewing7.png';
 
 imgArray.onload=function(){};
 
+
+var isShift;
+
+
 function init() {
 	var ctx;
 	var turn  = [];
@@ -43,7 +48,8 @@ function init() {
 	var X = 5 + (Math.random() * (30 - 10))|0;
 	var Y = 5 + (Math.random() * (30 - 10))|0;
 	var direction = Math.random() * 3 | 0;
-	var interval = 0;
+	var interval = 120;
+	var bonus = 0;
 	var score = 0;
 	var inc_score = 50;
 	var sum = 0, easy = 0;
@@ -79,12 +85,14 @@ function init() {
 	
 	placeFood();
 	
+
 	function clock() {
 		if (easy) {
 			X = (X+30)%30;
 			Y = (Y+30)%30;
 		}
 		--inc_score;
+		document.getElementById("stats").innerHTML = bonus + " - " + score + " - " + Math.round(interval);
 		if (turn.length) {
 			dir = turn.pop();
 			if ((dir % 2) !== (direction % 2)) {
@@ -95,7 +103,12 @@ function init() {
 		(easy || (0 <= X && 0 <= Y && X < 30 && Y < 30))
 			&& 2 !== map[X][Y]) {
 			if (1 === map[X][Y]) {
-				score+= Math.max(5, inc_score);
+
+				bonus = Math.round((Math.max(5, inc_score))/(Math.pow((interval/100), 1.5))+((queue.length*10)/interval));
+				//document.getElementById('bounce').className = 'bonus';
+				document.getElementById("bonus").innerHTML = bonus;
+				document.getElementById("bonus").className = 'bounce';
+				score = score + bonus;
 				inc_score = 50;
 				placeFood();
 				elements++;
@@ -117,6 +130,7 @@ function init() {
 			X+= xV[direction];
 			Y+= yV[direction];
 			if (elements < queue.length) {
+				console.log(queue);
 				dir = queue.pop()
 				map[dir[0]][dir[1]] = 0;
 				ctx.clearRect(dir[0] * 25, dir[1] * 25, 25, 25);
@@ -126,42 +140,73 @@ function init() {
 					} else {ctx.drawImage(imgArray[imgCounter], xFoodPosition, yFoodPosition)};
 			}
 			if (imgCounter == 17) {imgCounter = 10};
-			
+			timer();
 		} else if (!turn.length) {
 			highScore['value'] = score;
 			highScore['time'] = Math.round(+new Date()/1000);
-			highScore['name'] = 'Michael';
-			if (highScore['value'] > 20){saveToFirebase(highScore);}
-			if (confirm("You lost! Play again? Your Score is " + highScore['value'])) {
-				
-				
-				
-				ctx.clearRect(0, 0, 1000, 1000);
-				queue = [];
-				elements = 1;
-				map = [];
-				//i'm not sure about that second value in (30 - x) but it may need to match size of image
-				X = 5 + (Math.random() * (30 - 10))|0;
-				Y = 5 + (Math.random() * (30 - 10))|0;
-				direction = Math.random() * 3 | 0;
-				score = 0;
-				inc_score = 50;
-				xFoodPosition = -25; yFoodPosition = -25;
-				oldX = -25; oldY = -25;
-				imgCounter = 10;
-				
-				for (i = 0; i < 30; i++) {
-					map[i] = [];
-				}
-				placeFood();
-			} else {
-				window.clearInterval(interval);
-			}
+			if (highScore['value'] > lowestScore){
+				highScore['name'] = prompt("wow you're the greatest!!! neat job! please enter your name", highScore['name']);
+				saveToFirebase(highScore);}
+					for (i = 0; i < queue.length; i++) { 
+						dir = queue.pop()
+						ctx.clearRect(dir[0] * 25, dir[1] * 25, 25, 25);
+						xFoodPosition = dir[0];
+						yFoodPosition = dir[1];
+						explodebg()
+					}
+			if (confirm("You lost! Play again? Your Score is " + highScore['value'])) { restage();
+				} else { window.clearInterval(interval);}
 		}
 	}
-	interval = window.setInterval(clock, 100);
+	
+	function restage() {
+		ctx.clearRect(0, 0, 1000, 1000);
+		queue = [];
+		elements = 1;
+		map = [];
+		X = 5 + (Math.random() * (30 - 10))|0;
+		Y = 5 + (Math.random() * (30 - 10))|0;
+		direction = Math.random() * 3 | 0;
+		score = 0;
+		inc_score = 50;
+		xFoodPosition = -25;
+		yFoodPosition = -25;
+		oldX = -25; oldY = -25;
+		imgCounter = 10;
+		pullStrength = 0.002;
+		dampeningFactor = .8;
+		for (i = 0; i < 30; i++) {
+		map[i] = [];
+		}
+		interval = 100;
+		placeFood();
+		timer();
+	}
+	
+	function timer() {
+		if (isShift) {interval=interval*.992} else if (interval < 55) {interval=interval+2.5} else if (interval < 120) {interval=interval+1.4};
+		setTimeout(clock, interval)}
+		
+		
 	document.onkeydown = function(e) {
 		var code = e.keyCode - 37;
+
+		  var key;
+		  if (window.event) {
+			key = window.event.keyCode;
+			isShift = !!window.event.shiftKey; // typecast to boolean
+		  } else {
+			key = ev.which;
+			isShift = !!ev.shiftKey;
+		  }
+		  if ( isShift ) {
+			switch (key) {
+			  case 16: // ignore shift key
+				break;
+			  default:
+			  break;
+				}
+			  }
 		/*
 		 * 0: left
 		 * 1: up
@@ -172,10 +217,7 @@ function init() {
 			turn.unshift(code);
 		} else if (-5 == code) {
 			if (interval) {
-				window.clearInterval(interval);
-				interval = null;
 			} else {
-				interval = window.setInterval(clock, 60);
 			}
 		} else { // O.o
 			dir = sum + code;
@@ -184,5 +226,6 @@ function init() {
 			} else if (dir === 218) easy = 1;
 		}
 	}
+	timer();
 	
 }

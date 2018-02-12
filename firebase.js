@@ -15,7 +15,7 @@ function saveToFirebase(highScore) {
 	
     firebase.database().ref('high-scores').push().set(highScore)
         .then(function(snapshot) {
-            alert('success'); 
+           location.reload(); 
         }, function(error) {
             console.log('error' + error);
             error(); // some error method
@@ -26,8 +26,9 @@ function getScores() {
 	firebase.database().ref("high-scores").orderByChild('value').limitToLast(25).on('value', function(snapshot) {
 		//console.log(snapshotToArray(snapshot));
 		scoreList = snapshotToArray(snapshot);
-		console.log(scoreList[23].name);
+		console.log(scoreList[24].name);
 		listScores();
+		lowestScore = scoreList[0].value;
 		});	
 }
 
@@ -44,10 +45,8 @@ function snapshotToArray(snapshot) {
     return returnArr;
 };
 
-getScores();
-
 function listScores(){
-
+	getScores();
   var body = document.getElementsByTagName("P")[0];
  
   // creates a <table> element and a <tbody> element
