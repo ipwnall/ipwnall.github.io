@@ -1,21 +1,21 @@
 // Initialize Firebase
-var config = {
-	apiKey: "AIzaSyA4TgtmM6_Gv8nU1P4Wk9Us3VQUVSH2YAc",
-	authDomain: "seansnake-c1c38.firebaseapp.com",
-	databaseURL: "https://seansnake-c1c38.firebaseio.com",
-	projectId: "seansnake-c1c38",
-	storageBucket: "",
-	messagingSenderId: "79007695585"
-	};
-firebase.initializeApp(config);
-
-
+  var config = {
+    apiKey: "AIzaSyBB_W09v1DGSbOLrgfw24dONdiQG7ZS3sc",
+    authDomain: "seanmahurst.firebaseapp.com",
+    databaseURL: "https://seanmahurst.firebaseio.com",
+    projectId: "seanmahurst",
+    storageBucket: "seanmahurst.appspot.com",
+    messagingSenderId: "969031865743"
+  };
+  firebase.initializeApp(config);
+  
 
 function saveToFirebase(highScore) {
 	
     firebase.database().ref('high-scores').push().set(highScore)
         .then(function(snapshot) {
-           location.reload(); 
+           console.log(highScore);
+				   
         }, function(error) {
             console.log('error' + error);
             error(); // some error method
@@ -24,10 +24,9 @@ function saveToFirebase(highScore) {
 
 function getScores() {
 	firebase.database().ref("high-scores").orderByChild('value').limitToLast(25).on('value', function(snapshot) {
-		//console.log(snapshotToArray(snapshot));
+		console.log(snapshotToArray(snapshot));
 		scoreList = snapshotToArray(snapshot);
-		console.log(scoreList[24].name);
-		listScores();
+		console.log(scoreList[24].name.toString());
 		lowestScore = scoreList[0].value;
 		});	
 }
@@ -46,7 +45,6 @@ function snapshotToArray(snapshot) {
 };
 
 function listScores(){
-	getScores();
   var body = document.getElementsByTagName("P")[0];
  
   // creates a <table> element and a <tbody> element
@@ -82,5 +80,6 @@ function listScores(){
   tbl.setAttribute("border", "0");
 
 }
-
+getScores();
+setTimeout(listScores,500);
 

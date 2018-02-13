@@ -11,7 +11,7 @@ var yFoodPosition;
 var highScore = new Array();
  		highScore['value'] = 0;
 		highScore['time'] = 0;
-		highScore['name'] = 'na';
+		highScore['name'] = 'Anonymous';
 var scoreList = new Array();
 var lowestScore;
  
@@ -32,7 +32,6 @@ imgArray[16] = new Image(); imgArray[16].src = 'images/chewing6.png';
 imgArray[17] = new Image(); imgArray[17].src = 'images/chewing7.png';
 
 imgArray.onload=function(){};
-
 
 var isShift;
 
@@ -104,7 +103,7 @@ function init() {
 			&& 2 !== map[X][Y]) {
 			if (1 === map[X][Y]) {
 
-				bonus = Math.round((Math.max(5, inc_score))/(Math.pow((interval/100), 1.5))+((queue.length*10)/interval));
+				bonus = Math.round((Math.max(5, inc_score))/(Math.pow((interval/100), 2))+((queue.length*10)/interval));
 				//document.getElementById('bounce').className = 'bonus';
 				document.getElementById("bonus").innerHTML = bonus;
 				document.getElementById("bonus").className = 'bounce';
@@ -130,7 +129,7 @@ function init() {
 			X+= xV[direction];
 			Y+= yV[direction];
 			if (elements < queue.length) {
-				console.log(queue);
+				//console.log(queue);
 				dir = queue.pop()
 				map[dir[0]][dir[1]] = 0;
 				ctx.clearRect(dir[0] * 25, dir[1] * 25, 25, 25);
@@ -144,18 +143,19 @@ function init() {
 		} else if (!turn.length) {
 			highScore['value'] = score;
 			highScore['time'] = Math.round(+new Date()/1000);
-			if (highScore['value'] > lowestScore){
+			if (highScore['value'] > 5){
 				highScore['name'] = prompt("wow you're the greatest!!! neat job! please enter your name", highScore['name']);
-				saveToFirebase(highScore);}
-					for (i = 0; i < queue.length; i++) { 
-						dir = queue.pop()
-						ctx.clearRect(dir[0] * 25, dir[1] * 25, 25, 25);
-						xFoodPosition = dir[0];
-						yFoodPosition = dir[1];
-						explodebg()
-					}
+				if (highScore['name'].length > 0){saveToFirebase(highScore);}}
+				
+					//for (i = 0; i < queue.length; i++) { 
+					//	dir = queue.pop()
+					//	ctx.clearRect(dir[0] * 25, dir[1] * 25, 25, 25);
+					//	xFoodPosition = dir[0];
+					//	yFoodPosition = dir[1];
+					//	explodebg()
+					//}
 			if (confirm("You lost! Play again? Your Score is " + highScore['value'])) { restage();
-				} else { window.clearInterval(interval);}
+				}
 		}
 	}
 	
