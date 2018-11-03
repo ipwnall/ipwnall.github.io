@@ -2,201 +2,291 @@
 
 <html lang="en">
 
-	<head>
+<head>
 
-		<meta charset="utf-8" />
+	<meta charset="utf-8" />
 
-		<title>HTML5 Snake</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		
-		<style type="text/css">
-			body {
-				  background:
-					url('images/flag.gif');
-					text-align: center;
-			}
-			#snakecanvas {
-				-webkit-box-shadow:0 0 50px #000;
-				-moz-box-shadow: 0 0 50px #000;
-				box-shadow:0 0 50px #000;
-				
-				position: absolute;
-				margin-left: auto;
-				margin-right: auto;
-				left: 0;
-				right: 0;
-				z-index: 10;
-				
-				width: 750px;
-				height: 750px;
-			}
-			
-			#wavecanvas { 
-				background: rgba(255, 255, 255, 0.85); 
-				
-				position: absolute; 
-				margin-left: auto; 
-				margin-right: auto; 
-				left: 0; 
-				right: 0; 
-				z-index: 0; 
-				
-				width: 750px; 
-				height: 750px;
-			}
-			
-			.centercontainer {
-				margin: auto;
-				width: 750px;
-			}
-			
-			#scoreBoard {
-				position: relative;
-				left: 750px;
-				padding: 20px;
-				height: 750px;
-				background: rgba(255, 255, 255, 0.85); 
-				width: 180px;
-			 }
-			 
-			 #stats {
-				text-align: right;
-				padding-right: 30px;
-				padding-top: 5px;
-			}
-			
-			dialog {  
-				width: 500px;  
-				background:#e8e8e8;
-				border: 1px solid #dadada;
-				font-family:sans-serif;
-				padding: 5px 10px 20px 20px;
-				display: none;
-			}  
-			
-			
-			h1 { font-size:90px;
-				 color: #fff;
-				 line-height: 1;
-				 }
-			
-			h3 { font-size:40px;
-				 color: #fff;
-				 line-height: 1;
-				 }
-				 
-			table {
+	<title>HTML5 Snake</title>
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<style type="text/css">
+		body {
+			background:
+				url('images/flag.gif');
+			text-align: center;
+		}
+
+		#snakecanvas {
+			-webkit-box-shadow: 0 0 50px #000;
+			-moz-box-shadow: 0 0 50px #000;
+			box-shadow: 0 0 50px #000;
+
+			position: absolute;
+			margin-left: auto;
+			margin-right: auto;
+			left: 0;
+			right: 0;
+			z-index: 10;
+
+			width: 750px;
+			height: 750px;
+		}
+
+		#wavecanvas {
+			background: rgba(255, 255, 255, 0.85);
+			position: absolute;
+			margin-left: auto;
+			margin-right: auto;
+			left: 0;
+			right: 0;
+			z-index: 0;
+			width: 750px;
+			height: 750px;
+		}
+
+		.centercontainer {
+			margin: auto;
+			width: 750px;
+		}
+
+		#scoreBoard {
+			position: relative;
+			left: 750px;
+			padding: 20px;
+			height: 750px;
+			background: rgba(255, 255, 255, 0.85);
+			width: 180px;
+		}
+
+		#stats {
+			text-align: right;
+			padding-right: 30px;
+			padding-top: 5px;
+		}
+
+		dialog {
+			width: 500px;
+			background: #e8e8e8;
+			border: 1px solid #dadada;
+			font-family: sans-serif;
+			padding: 5px 10px 20px 20px;
+			display: none;
+		}
+
+		h1 {
+			font-size: 90px;
+			color: #fff;
+			line-height: 1;
+		}
+
+		h3 {
+			font-size: 40px;
+			color: #fff;
+			line-height: 1;
+		}
+
+		table {
 			text-align: left;
-			
-			}
-				 
-			@supports 
-				((-webkit-text-stroke-color: #000)
-				and
-				(-webkit-text-fill-color: white))
-				or
-				((-moz-text-stroke-color: #000)
-				and
-				(-moz-text-fill-color: white)) {
-				h1, h3 {
-				   -moz-text-fill-color: white;
+		}
+
+		@supports ((-webkit-text-stroke-color: #000) and (-webkit-text-fill-color: white)) or ((-moz-text-stroke-color: #000) and (-moz-text-fill-color: white)) {
+			h1, h3 {
+				-moz-text-fill-color: white;
 				-webkit-text-fill-color: white;
-				   -moz-text-stroke-color: #000;
+				-moz-text-stroke-color: #000;
 				-webkit-text-stroke-color: #000;
-				   -moz-text-stroke-width: .04em;  
+				-moz-text-stroke-width: .04em;
 				-webkit-text-stroke-width: .04em;
-				}
-				}
-				
-				
-				.bounce {
-				  position: relative;
-				  -moz-animation: bounce 2s ease-in-out;
-				  -o-animation: bounce 2s ease-in-out;
-				  -webkit-animation: bounce 2s ease-in-out;
-				  animation: bounce 2s;
-				  display: none;
-				}
-				#scorebounce{
-				display: none;
-				  font-size: 30px;
-				  margin: 20px;
-				}
-				@-webkit-keyframes bounce {
-					display: inline-block;
-					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
-					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
-					100% { top: 3em; right: -2em; opacity: 0.2;}
-					display: none;
-				}
-				@-moz-keyframes bounce {
-					display: inline-block;
-					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
-					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
-					100% { top: 3em; right: -2em; opacity: 0.2;}
-					display: none;
-				}
-				@-o-keyframes bounce {
-					display: inline-block;
-					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
-					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
-					100% { top: 3em; right: -2em; opacity: 0.2;}
-					display: none;
-				}
-				@-ms-keyframes bounce {
-					display: inline-block;
-					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
-					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
-					100% { top: 3em; right: -2em; opacity: 0.2;}
-					display: none;
-				}
-				@keyframes bounce {
-					display: inline-block;
-					0% { top: 2em; right: 5em; opacity: 0; ease-out;}
-					50% { top: -5em; right: 0em; opacity: 1;ease-in;}
-					100% { top: 3em; right: -2em; opacity: 0.2;}
-					display: none;
-					
-				}
-				
+			}
+		}
+		.bounce {
+			position: relative;
+			-moz-animation: bounce 2s ease-in-out;
+			-o-animation: bounce 2s ease-in-out;
+			-webkit-animation: bounce 2s ease-in-out;
+			animation: bounce 2s;
+			display: none;
+		}
 
-				 
-				 
-		</style>
+		#scorebounce {
+			display: none;
+			font-size: 30px;
+			margin: 20px;
+		}
 
+		@-webkit-keyframes bounce {
+			display: inline-block;
 
-		
-		
-	</head>
+			0% {
+				top: 2em;
+				right: 5em;
+				opacity: 0;
+				ease-out;
+			}
 
-	<body onload="init()">
-	
-		<h1> 
+			50% {
+				top: -5em;
+				right: 0em;
+				opacity: 1;
+				ease-in;
+			}
+
+			100% {
+				top: 3em;
+				right: -2em;
+				opacity: 0.2;
+			}
+
+			display: none;
+		}
+
+		@-moz-keyframes bounce {
+			display: inline-block;
+
+			0% {
+				top: 2em;
+				right: 5em;
+				opacity: 0;
+				ease-out;
+			}
+
+			50% {
+				top: -5em;
+				right: 0em;
+				opacity: 1;
+				ease-in;
+			}
+
+			100% {
+				top: 3em;
+				right: -2em;
+				opacity: 0.2;
+			}
+
+			display: none;
+		}
+
+		@-o-keyframes bounce {
+			display: inline-block;
+
+			0% {
+				top: 2em;
+				right: 5em;
+				opacity: 0;
+				ease-out;
+			}
+
+			50% {
+				top: -5em;
+				right: 0em;
+				opacity: 1;
+				ease-in;
+			}
+
+			100% {
+				top: 3em;
+				right: -2em;
+				opacity: 0.2;
+			}
+
+			display: none;
+		}
+
+		@-ms-keyframes bounce {
+			display: inline-block;
+
+			0% {
+				top: 2em;
+				right: 5em;
+				opacity: 0;
+				ease-out;
+			}
+
+			50% {
+				top: -5em;
+				right: 0em;
+				opacity: 1;
+				ease-in;
+			}
+
+			100% {
+				top: 3em;
+				right: -2em;
+				opacity: 0.2;
+			}
+
+			display: none;
+		}
+
+		@keyframes bounce {
+			display: inline-block;
+
+			0% {
+				top: 2em;
+				right: 5em;
+				opacity: 0;
+				ease-out;
+			}
+
+			50% {
+				top: -5em;
+				right: 0em;
+				opacity: 1;
+				ease-in;
+			}
+
+			100% {
+				top: 3em;
+				right: -2em;
+				opacity: 0.2;
+			}
+
+			display: none;
+
+		}
+	</style>
+
+	<style>
+		#scoreBoard > table > tbody > tr > td:nth-child(1) {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: 100px;
+		}
+	</style>
+
+</head>
+
+<body onload="init()">
+
+	<h1>
 		<img src="images/face.png" id="face2" width="80" height="80">
 		SEAN SNAKE
 		<img src="images/face.png" id="face2" width="80" height="80">
-		</h1>
-		
+	</h1>
 
-				<div class="centercontainer">
-				<canvas id="snakecanvas"></canvas>
-				<canvas id="wavecanvas"></canvas>
-				<div id="scoreBoard"><p></p></div>
-				<span id="bonus"></span><h3 id="stats"></h3>
-				</div>
-				
-				
-				<script src="snake.js"></script>
-				
-				<script src="waves.js"></script>
-				
-				<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-				<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
-				<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
-				<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
-				<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
-				<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js"></script>
-				<script src="firebase.js"></script>
-	</body>
+
+	<div class="centercontainer">
+		<canvas id="snakecanvas"></canvas>
+		<canvas id="wavecanvas"></canvas>
+		<div id="scoreBoard"></div>
+		<span id="bonus"></span>
+		<h3 id="stats"></h3>
+	</div>
+
+
+	<script src="snake.js"></script>
+
+	<script src="waves.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js"></script>
+	<script src="firebase.js"></script>
+</body>
+
 </html>
