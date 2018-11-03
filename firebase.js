@@ -77,7 +77,6 @@ function listScores() {
 
     // add the row to the end of the table body
     tblBody.appendChild(row);
-    console.log(row);
   }
 
   // put the <tbody> in the <table>
