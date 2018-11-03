@@ -24,9 +24,7 @@ function saveToFirebase(highScore) {
 
 function getScores() {
   firebase.database().ref("high-scores").orderByChild('value').limitToLast(25).on('value', function (snapshot) {
-    console.log(snapshotToArray(snapshot));
     scoreList = snapshotToArray(snapshot);
-    console.log(scoreList[24].name.toString());
     lowestScore = scoreList[0].value;
     listScores();
   });
@@ -46,15 +44,18 @@ function snapshotToArray(snapshot) {
 };
 
 function listScores() {
-  var body = document.getElementsByTagName("P")[0];
+  var body = document.getElementById("scoreBoard");
+
+  var maxRows = scoreList.length > 28 ? 28 : scoreList.length - 1;
 
   // creates a <table> element and a <tbody> element
   var tbl = document.createElement("table");
   var tblBody = document.createElement("tbody");
 
   // creating all cells
-  for (var i = 0; i < 24; i++) {
-    // creates a table row
+  for (var i = 0; i < maxRows; i++) {
+
+    // creates a table rowmfw the 
     var row = document.createElement("tr");
 
     for (var j = 0; j < 2; j++) {
@@ -64,24 +65,26 @@ function listScores() {
       var cell = document.createElement("td");
 
       if (j == 0) {
-        var cellText = document.createTextNode(scoreList[24 - i].name.toString() + ": ");
+        var cellText = document.createTextNode(scoreList[maxRows - i].name.toString() + ": ");
       }
       if (j == 1) {
-        var cellText = document.createTextNode(scoreList[24 - i].value.toString());
+        var cellText = document.createTextNode(scoreList[maxRows - i].value.toString());
       }
       cell.appendChild(cellText);
       row.appendChild(cell);
+      row.setAttribute("title", scoreList[maxRows - i].name);
     }
 
     // add the row to the end of the table body
     tblBody.appendChild(row);
+    console.log(row);
   }
 
   // put the <tbody> in the <table>
   tbl.appendChild(tblBody);
   // appends <table> into <body>
   body.appendChild(tbl);
-  // sets the border attribute of tbl to 2;
+  // sets the border attribute of tbl to 0;
   tbl.setAttribute("border", "0");
 
 }
